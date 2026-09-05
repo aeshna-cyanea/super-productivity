@@ -342,7 +342,7 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
 
     const task = this.task();
     return this.layoutService.isXs()
-      ? this.isMarkdownChecklist()
+      ? true
       : !!task.notes || (!task.issueId && !task.attachments?.length);
   });
 

@@ -274,7 +274,12 @@ describe('TaskDetailPanelComponent', () => {
     it('uses the responsive layout signal for mobile panel defaults', () => {
       expect(component.panelState.isExpandedAttachmentPanel()).toBeFalse();
       expect(component.isExpandedIssuePanel()).toBeFalse();
-      expect(component.isExpandedNotesPanel()).toBeFalse();
+      expect(component.isExpandedNotesPanel()).toBeTrue();
+      const detailItems = fixture.nativeElement.querySelectorAll('task-detail-item');
+      expect(detailItems[0].querySelector('inline-markdown')).not.toBeNull();
+
+      isXs.set(false);
+      expect(component.isExpandedNotesPanel()).toBeTrue();
     });
   });
 
