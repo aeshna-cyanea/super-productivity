@@ -46,6 +46,7 @@ export const DEFAULT_GLOBAL_CONFIG: GlobalConfigState = {
     isTrayShowCurrent: true,
     defaultProjectId: INBOX_PROJECT.id,
     isMarkdownFormattingInNotesEnabled: true,
+    isAlwaysExpandTaskNotes: true,
     notesTemplate: defaultTaskNotesTemplate,
   },
   misc: {

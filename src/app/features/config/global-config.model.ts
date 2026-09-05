@@ -73,6 +73,7 @@ export type TasksConfig = Readonly<{
   isConfirmBeforeDelete?: boolean;
   isTrayShowCurrent: boolean;
   isMarkdownFormattingInNotesEnabled: boolean;
+  isAlwaysExpandTaskNotes?: boolean;
   defaultProjectId?: string | null | false; // allow 'false' because of #569
   notesTemplate: string;
 }>;

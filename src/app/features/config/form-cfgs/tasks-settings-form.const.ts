@@ -41,6 +41,13 @@ export const TASKS_SETTINGS_FORM_CFG: ConfigFormSection<TasksConfig> = {
       },
     },
     {
+      key: 'isAlwaysExpandTaskNotes',
+      type: 'checkbox',
+      templateOptions: {
+        label: T.GCF.TASKS.IS_ALWAYS_EXPAND_TASK_NOTES,
+      },
+    },
+    {
       key: 'defaultProjectId',
       type: 'project-select',
       templateOptions: {

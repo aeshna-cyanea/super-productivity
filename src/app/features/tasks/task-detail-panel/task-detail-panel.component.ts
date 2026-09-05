@@ -339,10 +339,18 @@ export class TaskDetailPanelComponent implements OnInit, AfterViewInit, OnDestro
     if (this._taskDetailTargetPanel() === TaskDetailTargetPanel.Notes) {
       return true;
     }
-
     const task = this.task();
+    // Default behavior: expand when notes are present, fall back to the legacy
+    // mobile/desktop heuristic when notes are empty. Opt out via the
+    // `isAlwaysExpandTaskNotes` task setting to restore the legacy heuristic.
+    if (this._globalConfigService.tasks()?.isAlwaysExpandTaskNotes ?? true) {
+      return (
+        task.notes ||
+        (!this.layoutService.isXs() && !task.issueId && !task.attachments?.length)
+      );
+    }
     return this.layoutService.isXs()
-      ? true
+      ? this.isMarkdownChecklist()
       : !!task.notes || (!task.issueId && !task.attachments?.length);
   });
 
