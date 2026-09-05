@@ -44,6 +44,10 @@ android {
     // Configure the build types (Debug and Release)
     buildTypes {
         debug {
+            // Install debug builds under a different applicationId so they coexist
+            // with the production app on a device (no uninstall required).
+            // Resulting id: com.superproductivity.superproductivity.debug
+            applicationIdSuffix ".debug"
             // Define each field in BuildConfig for the Debug build
             debugConfigFields.each { key, value ->
                 buildConfigField "String", key, value.toString()
