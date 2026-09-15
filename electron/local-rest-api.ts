@@ -462,6 +462,8 @@ const ALLOWED_HOSTS = new Set([
 const isForceEnabledForDev = (): boolean =>
   process.env.NODE_ENV === 'DEV' && process.env.SP_FORCE_LOCAL_REST_API === '1';
 
+const isHeadlessMode = (): boolean => process.env.SP_HEADLESS_REST_API === '1';
+
 const getForcedDevToken = (): string => {
   if (process.env.SP_FORCE_LOCAL_REST_API_TOKEN) {
     return process.env.SP_FORCE_LOCAL_REST_API_TOKEN;
@@ -570,7 +572,7 @@ const handleHttpRequest = async (
     return;
   }
 
-  if (!getIsAppReady()) {
+  if (!getIsAppReady() && !(isHeadlessMode() || requestUrl.pathname === '/health')) {
     writeJson(res, 503, {
       ok: false,
       error: {
@@ -680,6 +682,11 @@ export const initLocalRestApi = (): void => {
   if (isForceEnabledForDev()) {
     warn('[local-rest-api] Enabled by SP_FORCE_LOCAL_REST_API=1 for DEV runtime');
     localRestApiToken = getForcedDevToken();
+    isEnabled = true;
+    startServer();
+  } else if (isHeadlessMode()) {
+    warn('[local-rest-api] Starting in headless mode (SP_HEADLESS_REST_API=1)');
+    localRestApiToken = ensureToken();
     isEnabled = true;
     startServer();
   }

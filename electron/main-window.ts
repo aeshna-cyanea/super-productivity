@@ -350,7 +350,9 @@ export const createWindow = async ({
 
   // show gracefully
   mainWin.once('ready-to-show', () => {
-    mainWin.show();
+    if (!process.env.SP_HEADLESS_REST_API) {
+      mainWin.show();
+    }
 
     // Workaround for Windows phantom focus bug (electron#20464):
     // show() can silently fail to acquire keyboard focus after reboot.
